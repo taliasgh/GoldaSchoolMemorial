@@ -13,21 +13,63 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f5f5f5;
+      color: #111111;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #ffffff;
+    }
+
+    .hero {
+      position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-
-      background-image: url("file:///Users/talias/.cursor/projects/Users-talias-Documents-ComputerProjects-GoldaSchoolMemorial/assets/candle-bg-e8b13036-ee38-4da1-a60c-25e2b3dbdc97.png");
+      background-image: url("candle-bg.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    .overlay {
+    .top-bar {
       position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      padding: 0 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      color: #f5f5f5;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 2;
+      transition: background-color 200ms ease, box-shadow 200ms ease;
+    }
+
+    .top-bar__title {
+      font-weight: 500;
+    }
+
+    .top-bar__logo {
+      height: 88px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      transform: translateY(10px);
+    }
+
+    .top-bar--scrolled {
+      background: rgba(20, 20, 20, 0.9);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .overlay {
+      position: absolute;
       inset: 0;
       background: radial-gradient(circle at top, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
       z-index: 0;
@@ -36,12 +78,39 @@
     .content {
       position: relative;
       z-index: 1;
-      max-width: 720px;
-      padding: 2.5rem 1.5rem;
-      background: rgba(0, 0, 0, 0.55);
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
+      max-width: 100%;
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .hero-title {
+      position: absolute;
+      top: 96px;
+      right: 72px;
+      font-size: clamp(6rem, 10vw, 9rem);
+      color: #ffeeb0;
+      margin: 0;
+      letter-spacing: 0.12em;
+      text-align: right;
+      direction: rtl;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-subtitle {
+      position: absolute;
+      top: 96px;
+      right: 72px;
+      margin-top: clamp(8rem, 11vw, 10rem);
+      max-width: 420px;
+      font-size: 2rem;
+      line-height: 1.8;
+      color: #ffeeb0;
+      text-align: right;
+      direction: rtl;
+      white-space: pre-line;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
     }
 
     h1 {
@@ -89,9 +158,44 @@
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
+  <div class="top-bar">
+    <div class="top-bar__title"></div>
+    <img class="top-bar__logo" src="golda-symbal.png" alt="Golda School symbol" />
+  </div>
 
-  <main class="content">
-  </main>
+  <div class="hero">
+    <div class="overlay"></div>
+    <h1 class="hero-title">יזכור</h1>
+    <p class="hero-subtitle">לְכָל אִישׁ יֵשׁ שֵׁם
+שֶׁנָּתַן לוֹ אֱלֹהִים
+וְנָתְנוּ לוֹ אָבִיו וְאִמּוֹ...
+לְכָל אִישׁ יֵשׁ שֵׁם
+שֶׁנָּתְנוּ לוֹ שְׁנוֹתָיו
+וְנָתְנוּ לוֹ מַעֲשָׂיו.</p>
+    <main class="content"></main>
+  </div>
+
+  <section style="padding: 4rem 1.5rem 2rem; text-align: center;">
+    <h1 style="font-size: 2.2rem; margin: 0; color: #111111; letter-spacing: 0.08em;">
+      נזכור אותם לעד
+    </h1>
+  </section>
+  <script>
+    (function () {
+      var topBar = document.querySelector('.top-bar');
+      if (!topBar) return;
+
+      function updateTopBar() {
+        if (window.scrollY > 4) {
+          topBar.classList.add('top-bar--scrolled');
+        } else {
+          topBar.classList.remove('top-bar--scrolled');
+        }
+      }
+
+      window.addEventListener('scroll', updateTopBar, { passive: true });
+      updateTopBar();
+    })();
+  </script>
 </body>
 </html>
