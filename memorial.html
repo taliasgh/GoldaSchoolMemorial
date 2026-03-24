@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>Golda School Memorial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -37,7 +40,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 72px;
+      height: 96px;
       padding: 0 1.75rem;
       display: flex;
       align-items: center;
@@ -64,7 +67,7 @@
     }
 
     .top-bar--scrolled {
-      background: rgba(20, 20, 20, 0.9);
+      background: rgb(20, 20, 20);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
 
@@ -86,6 +89,7 @@
     }
 
     .hero-title {
+      font-family: 'Levi', 'Frank Ruhl Libre', serif;
       position: absolute;
       top: 96px;
       right: 72px;
@@ -181,6 +185,7 @@
       position: absolute;
       width: 14%;
       height: auto;
+      cursor: pointer;
     }
 
     .shelf-book--1 { top: 9%; left: 3%; }
@@ -198,10 +203,7 @@
     .book-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #ffffff;
       opacity: 0;
       pointer-events: none;
       transition: opacity 220ms ease-out;
@@ -213,110 +215,22 @@
       pointer-events: auto;
     }
 
-    .book-modal__content {
-      position: relative;
-    }
-
-    .book-modal__book {
-      width: min(70vw, 520px);
-      height: min(80vh, 720px);
-      perspective: 1600px;
-    }
-
     .book-modal__close {
-      position: absolute;
-      top: -40px;
-      right: -16px;
+      position: fixed;
+      top: 1rem;
+      right: 1.25rem;
+      z-index: 11;
       border: none;
       background: transparent;
-      color: #ffffff;
-      font-size: 2rem;
-      cursor: pointer;
-      padding: 0;
+      color: #333333;
+      font-size: 2.25rem;
       line-height: 1;
-    }
-
-    .book-pages {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transform-origin: left center;
-      transition: transform 0.7s ease;
-    }
-
-    .book-pages__sheet {
-      position: absolute;
-      inset: 0;
-      background: #2b1b14;
-      border-radius: 10px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      direction: ltr;
-    }
-
-    .book-pages__page {
-      padding: 2.5rem 2rem;
-      background: #f9f3e5;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-      position: relative;
-    }
-
-    .book-pages__page--left {
-      border-right: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .book-pages__page--right {
-      border-left: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .book-pages__heading {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      color: #5a2d1a;
-    }
-
-    .book-pages__text {
-      font-size: 0.98rem;
-      line-height: 1.7;
-      color: #3a2a22;
-      direction: rtl;
-      text-align: right;
-    }
-
-    .book-pages--flip-next {
-      transform: rotateY(-180deg);
-    }
-
-    .book-pages--flip-prev {
-      transform: rotateY(180deg);
-    }
-
-    .book-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(0, 0, 0, 0.65);
-      color: #fff;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
+      padding: 0.25rem 0.5rem;
     }
 
-    .book-nav--prev {
-      left: -56px;
-    }
-
-    .book-nav--next {
-      right: -56px;
+    .book-modal__close:hover {
+      color: #000000;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -366,26 +280,8 @@
       <img src="book.png" alt="ספר זיכרון" class="shelf-book shelf-book--10" />
     </div>
   </section>
-  <div class="book-modal" aria-hidden="true">
-    <div class="book-modal__content">
-      <div class="book-modal__book">
-        <div class="book-pages" id="book-pages">
-          <div class="book-pages__sheet">
-            <div class="book-pages__page book-pages__page--left">
-              <h2 class="book-pages__heading" id="book-left-heading"></h2>
-              <p class="book-pages__text" id="book-left-text"></p>
-            </div>
-            <div class="book-pages__page book-pages__page--right">
-              <h2 class="book-pages__heading" id="book-right-heading"></h2>
-              <p class="book-pages__text" id="book-right-text"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="book-nav book-nav--prev" type="button" aria-label="Previous pages">&#8249;</button>
-      <button class="book-nav book-nav--next" type="button" aria-label="Next pages">&#8250;</button>
-      <button class="book-modal__close" type="button" aria-label="Close book">&times;</button>
-    </div>
+  <div class="book-modal" aria-hidden="true" role="dialog" aria-label="דף ריק">
+    <button class="book-modal__close" type="button" aria-label="סגור">&times;</button>
   </div>
   <script>
     (function () {
@@ -404,53 +300,11 @@
       updateTopBar();
 
       var modal = document.querySelector('.book-modal');
-      var modalBook = modal ? modal.querySelector('.book-modal__book') : null;
       var shelfBooks = document.querySelectorAll('.shelf-book');
-
-      var pagesData = [
-        { title: 'עמוד 1', text: 'טקסט זיכרון או הקדשה כאן.' },
-        { title: 'עמוד 2', text: 'עוד טקסט או תמונה.' },
-        { title: 'עמוד 3', text: 'טקסט נוסף.' },
-        { title: 'עמוד 4', text: 'סיום.' }
-      ];
-
-      var currentSpreadIndex = 0;
-      var isFlipping = false;
-
-      var pagesRoot = document.getElementById('book-pages');
-      var leftHeading = document.getElementById('book-left-heading');
-      var leftText = document.getElementById('book-left-text');
-      var rightHeading = document.getElementById('book-right-heading');
-      var rightText = document.getElementById('book-right-text');
-
-      function renderSpread() {
-        var leftIndex = currentSpreadIndex * 2;
-        var rightIndex = leftIndex + 1;
-
-        var left = pagesData[leftIndex];
-        var right = pagesData[rightIndex];
-
-        if (left) {
-          leftHeading.textContent = left.title;
-          leftText.textContent = left.text;
-        } else {
-          leftHeading.textContent = '';
-          leftText.textContent = '';
-        }
-
-        if (right) {
-          rightHeading.textContent = right.title;
-          rightText.textContent = right.text;
-        } else {
-          rightHeading.textContent = '';
-          rightText.textContent = '';
-        }
-      }
+      var closeBtn = document.querySelector('.book-modal__close');
 
       function openBook() {
-        if (!modal || !modalBook || !pagesRoot) return;
-        currentSpreadIndex = 0;
-        renderSpread();
+        if (!modal) return;
         modal.classList.add('book-modal--open');
         modal.setAttribute('aria-hidden', 'false');
       }
@@ -467,56 +321,18 @@
         });
       });
 
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          closeBook();
+        });
+      }
+
       if (modal) {
         modal.addEventListener('click', function (event) {
-          if (event.target === modal || event.target.closest('.book-modal__close')) {
+          if (event.target === modal) {
             closeBook();
           }
-        });
-      }
-
-      var prevBtn = document.querySelector('.book-nav--prev');
-      var nextBtn = document.querySelector('.book-nav--next');
-
-      function flipNext() {
-        if (isFlipping) return;
-        if ((currentSpreadIndex + 1) * 2 >= pagesData.length) return;
-        isFlipping = true;
-        pagesRoot.classList.remove('book-pages--flip-prev');
-        pagesRoot.classList.add('book-pages--flip-next');
-        setTimeout(function () {
-          currentSpreadIndex += 1;
-          renderSpread();
-          pagesRoot.classList.remove('book-pages--flip-next');
-          isFlipping = false;
-        }, 700);
-      }
-
-      function flipPrev() {
-        if (isFlipping) return;
-        if (currentSpreadIndex === 0) return;
-        isFlipping = true;
-        pagesRoot.classList.remove('book-pages--flip-next');
-        pagesRoot.classList.add('book-pages--flip-prev');
-        setTimeout(function () {
-          currentSpreadIndex -= 1;
-          renderSpread();
-          pagesRoot.classList.remove('book-pages--flip-prev');
-          isFlipping = false;
-        }, 700);
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          flipNext();
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          flipPrev();
         });
       }
     })();
